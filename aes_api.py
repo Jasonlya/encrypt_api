@@ -18,7 +18,9 @@ cipher_suite = AES.new(key, AES.MODE_ECB)
 
 @app.route('/api/add', methods=['POST'])
 def add_numbers():
-    encrypt_data = request.json()['data']
+    # json_data = request.json
+    # print(json_data)
+    encrypt_data = request.json['data']
 
     decipher_suite = AES.new(key, AES.MODE_ECB)
     decrypt_data = unpad(decipher_suite.decrypt(base64.b64decode(encrypt_data)), AES.block_size)
@@ -42,7 +44,7 @@ def add_numbers():
     # num2 = int(num2.decode('utf-8'), 2)
     result = data['num1']+data['num2']
 
-    response = {'data':{'result': result}}
+    response = {'data':{'num': {'num1':data['num1'],'num2':data['num2']},'result':result}}
     return jsonify(response)
 
 
