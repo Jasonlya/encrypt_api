@@ -18,12 +18,12 @@ cipher_suite = AES.new(key, AES.MODE_ECB)
 
 @app.route('/api/add', methods=['POST'])
 def add_numbers():
-    # json_data = request.json
-    # print(json_data)
-    encrypt_data = request.json['data']
-
+    encrypt_data = request.data
+    print(encrypt_data)
+    # base = base64.b64encode(encrypt_data).decode('utf-8')
+    # print(base)
     decipher_suite = AES.new(key, AES.MODE_ECB)
-    decrypt_data = unpad(decipher_suite.decrypt(base64.b64decode(encrypt_data)), AES.block_size)
+    decrypt_data = unpad(decipher_suite.decrypt(encrypt_data), AES.block_size)
     # print(decrypt_data)
     data = json.loads(decrypt_data.decode())
     # print(data)
